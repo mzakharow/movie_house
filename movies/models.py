@@ -41,12 +41,23 @@ class Genre(models.Model):
         verbose_name_plural = 'Жанры'
 
 
+class Country(models.Model):
+    title = models.CharField('Название', max_length=64)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Страна'
+        verbose_name_plural = 'Страны'
+
+
 class Movie(models.Model):
     title = models.CharField('Название', max_length=128)
     description = models.TextField('Описание')
     poster = models.ImageField('Постер', upload_to='movies/')
     year = models.PositiveIntegerField('Дата выхода', default=2020)
-    country = models.CharField('Страна', max_length=32)
+    country = models.ManyToManyField(Country, verbose_name='страна', related_name='film_country')
     director = models.ManyToManyField(Participant, verbose_name='режиссер', related_name='film_director')
     actors = models.ManyToManyField(Participant, verbose_name='актеры', related_name='film_actor')
     genres = models.ManyToManyField(Genre, verbose_name='жанры')
@@ -100,3 +111,4 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
