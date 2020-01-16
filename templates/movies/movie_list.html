@@ -6,7 +6,14 @@
 </head>
 <body>
 {% for movie in movie_list %}
-    {{ movie.title }}
+
+    <a href="{{ movie.get_absolute_url }}">
+        {{ movie.title }}
+    </a>
+    <p></p>
+    <a href="{% url 'movie_detail' movie.url %}">
+        {{ movie.title }}
+    </a>
 {% endfor %}
 </body>
 </html>
