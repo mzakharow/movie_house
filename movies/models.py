@@ -2,6 +2,11 @@ from django.db import models
 from django.urls import reverse
 
 
+def image_folder(instance, filename):
+    filename = instance.url + '.' + filename.split('.')[1]    # filename.split('.')[1]- расширение файла
+    return f'{instance._meta.model_name}/{instance.url}/{filename}'
+
+
 class Category(models.Model):
     name = models.CharField('Категория', max_length=128)
     description = models.TextField('Описание')
@@ -19,7 +24,8 @@ class Participant(models.Model):
     name = models.CharField('Имя', max_length=128)
     age = models.PositiveIntegerField('Возраст', default=0)
     description = models.TextField('Описание')
-    image = models.ImageField('Изображение', upload_to='actors/')
+    image = models.ImageField('Изображение', upload_to=image_folder)
+    url = models.SlugField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
@@ -56,7 +62,7 @@ class Country(models.Model):
 class Movie(models.Model):
     title = models.CharField('Название', max_length=128)
     description = models.TextField('Описание')
-    poster = models.ImageField('Постер', upload_to='movies/')
+    poster = models.ImageField('Постер', upload_to=image_folder)
     year = models.PositiveIntegerField('Дата выхода', default=2020)
     country = models.ManyToManyField(Country, verbose_name='страна', related_name='film_country')
     director = models.ManyToManyField(Participant, verbose_name='режиссер', related_name='film_director')

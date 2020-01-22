@@ -12,6 +12,7 @@
     <a href="{% url 'movie_detail' movie.url %}">
         {{ movie.title }}
     </a>
+    <img src="{{ movie.poster.url }}">
     {% for genre in movie.genres.all %}
         {{ genre.name }}
     {% endfor %}

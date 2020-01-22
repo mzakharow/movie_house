@@ -23,4 +23,4 @@ class MoviesView(ListView):
 class MovieDetailView(DetailView):
     model = Movie
     slug_field = "url"
-    template_name = "movies/movie_detail.html"
+    # template_name = "movies/movie_detail.html"

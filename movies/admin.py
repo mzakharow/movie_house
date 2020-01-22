@@ -7,9 +7,13 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'url': ('name', )}   # автоматическое заполнение поле slug в админке
 
 
+class ParticipantAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'url': ('name', )}  # автоматическое заполнение поле slug в админке
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Movie)
-admin.site.register(Participant)
+admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Rating)
 admin.site.register(RatingStar)
 admin.site.register(Review)

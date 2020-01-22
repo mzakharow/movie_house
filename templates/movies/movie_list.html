@@ -7,9 +7,9 @@
 <body>
 {% for movie in movie_list %}
 
-    <a href="{{ movie.get_absolute_url }}">
-        {{ movie.title }}
-    </a>
+{#    <a href="{{ movie.get_absolute_url }}">#}
+{#        {{ movie.title }}#}
+{#    </a>#}
     <p></p>
     <a href="{% url 'movie_detail' movie.url %}">
         {{ movie.title }}
