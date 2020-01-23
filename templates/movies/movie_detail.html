@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ movie.title }}</title>
-</head>
-<body>
-{#    <a href="{{ movie.get_absolute_url }}">#}
-{#        {{ movie.title }}#}
-{#    </a>#}
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ movie.title }}
+{% endblock title %}
+
+{% block content %}
+    {#    <a href="{{ movie.get_absolute_url }}">#}
+    {#        {{ movie.title }}#}
+    {#    </a>#}
     <a href="{% url 'movie_detail' movie.url %}">
         {{ movie.title }}
     </a>
@@ -16,5 +15,15 @@
     {% for genre in movie.genres.all %}
         {{ genre.name }}
     {% endfor %}
-</body>
-</html>
+    <form action="{% url 'add_review' movie.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="text"></textarea>
+        <input type="text" name="name">
+        <input type="email" name="email">
+        <button type="submit">Отправить</button>
+    </form>
+    {% for review in movie.review_set.all %}
+        {{ review.name }}
+        {{ review.text }}
+    {% endfor %}
+{% endblock %}

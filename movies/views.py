@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView, ListView
 
 from .models import Movie, Genre
-
+from .forms import ReviewForm
 
 # class MoviesView(View):
 #     def get(self, request):
@@ -13,6 +13,7 @@ from .models import Movie, Genre
 class MoviesView(ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
+    # if if there is no tamplate name, a template will be displayed <model_name> + 'list'
 
 # class MovieDetailView(View):
 #     def get(self, request, movie_slug):
@@ -23,4 +24,17 @@ class MoviesView(ListView):
 class MovieDetailView(DetailView):
     model = Movie
     slug_field = "url"
-    # template_name = "movies/movie_detail.html"
+    # if there is no tamplate_name, a template will be displayed <model_name> + '_detail' (here is movie_detail)
+    # template_name = "movies/movie.html"
+
+
+class AddReview(View):
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        movie = Movie.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            # form.movie_id = pk  # turn refer to related field
+            form.movie = movie
+            form.save()
+        return redirect(movie.get_absolute_url())
