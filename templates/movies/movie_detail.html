@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{#{% load movie_tag %}#}
 {% block title %}
     {{ movie.title }}
 {% endblock title %}
@@ -8,6 +8,7 @@
     {#    <a href="{{ movie.get_absolute_url }}">#}
     {#        {{ movie.title }}#}
     {#    </a>#}
+
     <a href="{% url 'movie_detail' movie.url %}">
         {{ movie.title }}
     </a>
@@ -23,7 +24,6 @@
         <button type="submit">Отправить</button>
     </form>
     {% for review in movie.review_set.all %}
-        {{ review.name }}
-        {{ review.text }}
+        <li>{{ review.name }}: {{ review.text }}</li>
     {% endfor %}
 {% endblock %}

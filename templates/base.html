@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 {% load static %}
+{% load movie_tag %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock title %}</title>
 </head>
 <body>
+<ul>
+    {% get_categories as categories %}
+    {% for category in categories %}
+        <li><a href="/">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
 {% block content %}
 
 {% endblock content %}
 
+{% get_last_movies count=4 %}
+
 {% include 'include/footer.html' %}
+
 </body>
 </html>

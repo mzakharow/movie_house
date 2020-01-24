@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for movie in movie_list %}
+{% extends 'base.html' %}
+{% block title %}
+    {{ movie.title }}
+{% endblock title %}
 
-{#    <a href="{{ movie.get_absolute_url }}">#}
-{#        {{ movie.title }}#}
-{#    </a>#}
-    <p></p>
-    <a href="{% url 'movie_detail' movie.url %}">
-        {{ movie.title }}
-    </a>
-{% endfor %}
-</body>
-</html>
+{% block content %}
+    {% for movie in movie_list %}
+
+        {#    <a href="{{ movie.get_absolute_url }}">#}
+        {#        {{ movie.title }}#}
+        {#    </a>#}
+        <p></p>
+        <a href="{% url 'movie_detail' movie.url %}">
+            {{ movie.title }}
+        </a>
+    {% endfor %}
+{% endblock %}
