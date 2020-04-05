@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ participant.name }}
+{% endblock title %}
+
+{% block content %}
+    {{ participant.name }}
+    <img src="{{ participant.image.url }}">
+    {% for actor in participant.film_actor.all %}
+        <h4>Актер: {{ actor }}</h4>
+    {% endfor %}
+
+    {% for director in participant.film_director.all %}
+        <h4>Режисер: {{ director }}</h4>
+    {% endfor %}
+
+{% endblock %}

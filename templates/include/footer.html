@@ -1,2 +1,22 @@
+{% load movie_tag %}
 
-<h1>footer</h1>
+<h3>footer</h3>
+{% get_last_movies count=4 %}
+
+<form action="{% url 'filter' %}" method="get">
+<ul>
+    {% for genre in view.get_genres %}
+        <input type="checkbox" name="genre" value="{{ genre.id }}">
+        <li>{{ genre.name }}</li>
+    {% endfor %}
+</ul>
+
+
+    <ul>
+        {% for movie in view.get_years %}
+            <input type="checkbox" name="year" value="{{ movie.year }}">
+            <li>{{ movie.year }}</li>
+        {% endfor %}
+    </ul>
+    <button type="submit">Найти</button>
+</form>
