@@ -4,13 +4,12 @@
 {% get_last_movies count=4 %}
 
 <form action="{% url 'filter' %}" method="get">
-<ul>
-    {% for genre in view.get_genres %}
-        <input type="checkbox" name="genre" value="{{ genre.id }}">
-        <li>{{ genre.name }}</li>
-    {% endfor %}
-</ul>
-
+    <ul>
+        {% for genre in view.get_genres %}
+            <input type="checkbox" name="genre" value="{{ genre.id }}">
+            <li>{{ genre.name }}</li>
+        {% endfor %}
+    </ul>
 
     <ul>
         {% for movie in view.get_years %}
@@ -20,3 +19,11 @@
     </ul>
     <button type="submit">Найти</button>
 </form>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Online Cinema 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>

@@ -40,7 +40,7 @@ class MoviesView(GenreYear, ListView):
 
 class MovieDetailView(GenreYear, DetailView):
     model = Movie
-    slug_field = "url"
+    slug_field = "url"  # по какому полю нужно искать запись
     # if there is no template_name, a template will be displayed <model_name> + '_detail' (there is movie_detail)
     # template_name = "movies/movie.html"
 

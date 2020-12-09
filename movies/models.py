@@ -49,7 +49,7 @@ class Genre(models.Model):
 
 
 class Country(models.Model):
-    title = models.CharField('Название', max_length=64)
+    title = models.CharField('Название', max_length=64, unique=True)
 
     def __str__(self):
         return self.title
