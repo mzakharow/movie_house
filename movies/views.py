@@ -2,9 +2,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView, ListView
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Movie, Genre, Category, Participant
 from .forms import ReviewForm
+from .serializer import MoviesSerializer
 
 
 class GenreYear:
@@ -50,6 +52,12 @@ class MovieDetailView(GenreYear, DetailView):
     #     return context
 
 
+class MoviesListView(ModelViewSet):
+    """DRF"""
+    queryset = Movie.objects.filter(draft=False)
+    serializer_class = MoviesSerializer
+
+
 class AddReview(View):
     def post(self, request, pk):
         form = ReviewForm(request.POST)
@@ -75,3 +83,7 @@ class FilterMoviesView(GenreYear, ListView):
             Q(genres__in=self.request.GET.getlist("genre"))   # , как просто И
         )
         return queryset
+
+
+def movies_app(request):
+    return render(request, 'movies.html')

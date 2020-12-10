@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>Список всех фильмов</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
+    {% endblock header %}
+
+<body>
+{% block content %}
+
+
+{% verbatim %}
+
+<div class="container" id="movies_app">
+    <h1 class="my-4">Полный список фильмов</h1>
+     <div class="row"  v-for="movie in movies">
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="{{ movie.poster.url }}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{% url 'movie_detail' movie.url %}">{{ movie.title }}</a>
+                        </h4>
+                        <p class="card-text">
+                            Жанр: <h7 v-for="genre in movie.genres">{{ genre}} </h7>
+                        </p>
+                        <p class="card-text">Год выпуска: {{ movie.year }}</p>
+                        <p class="card-text">
+                            Страна: <h7 v-for="country in movie.country">{{ country }} </h7>
+                        </p>
+                        <p class="card-text">
+                            Режиссер: <h7 v-for="director in movie.director">{{ director.name }} </h7>
+                        </p>
+                        <p class="card-text">
+                            В ролях: <h7 v-for="actor in movie.actors">{{ actor.name }} </h7>
+                        </p>
+                        <p class="card-text">{{ movie.description }}</p>
+                        <ul class="stars">
+                            <li><a href="#"><spam class="fa fa-star" aria-hidden="true"></spam></a></li>
+                            <li><a href="#"><spam class="fa fa-star-half-o" aria-hidden="true"></spam></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+         <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="{{ movie.poster.url }}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a :href="`${ movie.url }`">{{ movie.title }}</a>
+                        </h4>
+                        <p class="card-text">
+                            Жанр: <h7 v-for="genre in movie.genres">{{ genre}} </h7>
+                        </p>
+                        <p class="card-text">Год выпуска: {{ movie.year }}</p>
+                        <p class="card-text">
+                            Страна: <h7 v-for="country in movie.country">{{ country }} </h7>
+                        </p>
+                        <p class="card-text">
+                            Режиссер: <h7 v-for="director in movie.director">{{ director.name }} </h7>
+                        </p>
+                        <p class="card-text">
+                            В ролях: <h7 v-for="actor in movie.actors">{{ actor.name }} </h7>
+                        </p>
+                        <p class="card-text">{{ movie.description }}</p>
+                        <ul class="stars">
+                            <li><a href="#"><spam class="fa fa-star" aria-hidden="true"></spam></a></li>
+                            <li><a href="#"><spam class="fa fa-star-half-o" aria-hidden="true"></spam></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+     </div>
+</div>
+
+{% endverbatim %}
+    <script src="{% static "js/app.js" %}"></script>
+{% endblock content %}
+
+</body>
+</html>
