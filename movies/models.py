@@ -112,7 +112,6 @@ class Review(models.Model):
     email = models.EmailField()
     name = models.CharField('Имя', max_length=64)
     text = models.TextField('Отзыв', max_length=3072)
-    parent = models.ForeignKey('self', verbose_name='Родитель', on_delete=models.SET_NULL, blank=True, null=True)
     movie = models.ForeignKey(Movie, verbose_name='фильм', on_delete=models.CASCADE)
 
     def __str__(self):

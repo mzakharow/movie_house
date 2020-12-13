@@ -10,10 +10,12 @@ from .serializer import MoviesSerializer
 
 
 class GenreYear:
-    def get_genres(self):
+    @staticmethod
+    def get_genres():
         return Genre.objects.all()
 
-    def get_years(self):
+    @staticmethod
+    def get_years():
         return Movie.objects.filter(draft=False).values("year")
 
 

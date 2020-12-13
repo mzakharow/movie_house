@@ -5,35 +5,104 @@
 {% endblock title %}
 
 {% block content %}
-    {#    <a href="{{ movie.get_absolute_url }}">#}
-    {#        {{ movie.title }}#}
-    {#    </a>#}
-
-    <a href="{% url 'movie_detail' movie.url %}">
+    <a href="{{ movie.get_absolute_url }}">
         {{ movie.title }}
     </a>
-    <img src="{{ movie.poster.url }}">
-    {% for genre in movie.genres.all %}
-        {{ genre.name }}
-    {% endfor %}
 
-    {% for director in movie.director.all %}
-        <a href="{% url 'participant_detail' director.url %}">{{ director.name }}</a>
-        {{ director.name }}
-    {% endfor %}
-    {% for actor in movie.actors.all %}
-        <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
-        {{ actor.name }}
-    {% endfor %}
+    <div class="container">
+        {#<h1 class="mt-4 mb-3">Отдельная страница#}
+        {#      <small>портфолио</small>#}
+        {#    </h1>#}
+    <div class="card my-4">
+        <div class="row">
 
-    <form action="{% url 'add_review' movie.id %}" method="post">
-        {% csrf_token %}
-        <textarea name="text"></textarea>
-        <input type="text" name="name">
-        <input type="email" name="email">
-        <button type="submit">Отправить</button>
-    </form>
-    {% for review in movie.review_set.all %}
-        <li>{{ review.name }}: {{ review.text }}</li>
-    {% endfor %}
+            <div class="col-md-3">
+                <img class="img-fluid" src="{{ movie.poster.url }}" alt="">
+            </div>
+
+            <div class="col-md-9">
+                <h3 class="my-3">Информация: </h3>
+                <ul>
+                    <li>Жанр: </li>
+                    <li>Год: </li>
+                    <li>Страна: </li>
+                    <li>Бюджет: </li>
+                    <li>Режиссер: </li>
+                    <li>Актеры: </li>
+                </ul>
+                <h3 class="my-3">Краткое содержание: </h3>
+                <p>{{ movie.description }}</p>
+            </div>
+        </div>
+    </div>
+        <a href="{% url 'movie_detail' movie.url %}">
+            {{ movie.title }}
+        </a>
+        <img src="{{ movie.poster.url }}">
+        {% for genre in movie.genres.all %}
+            {{ genre.name }}
+        {% endfor %}
+
+        {% for director in movie.director.all %}
+            <a href="{% url 'participant_detail' director.url %}">{{ director.name }}</a>
+            {{ director.name }}
+        {% endfor %}
+        {% for actor in movie.actors.all %}
+            <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
+            {{ actor.name }}
+        {% endfor %}
+
+        <form action="{% url 'add_review' movie.id %}" method="post">
+            {% csrf_token %}
+            <div class="card my-4">
+                <h5 class="card-header">Оставить комментарий о фильме</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="inputComment" class="col-sm-2 col-form-label">Комментарий:</label>
+                                <div class="col-sm-10">
+                                    {#                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">#}
+                                    <textarea class="form-control" name="text" ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Имя:</label>
+                                <div class="col-sm-10">
+                                    {#                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">#}
+                                    <input class="form-control" type="text" name="name">
+                                </div>
+                            </div>
+                            {#                        <label for="exampleFormControlInput1">Имя:</label>#}
+                            {#                        <input class="form-control" type="text" name="name">#}
+                            <div class="form-group row">
+                                <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
+                                <div class="col-sm-10">
+                                    {#                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">#}
+                                    <input class="form-control" type="email" name="email">
+                                </div>
+                            </div>
+                            {#                        <label for="exampleFormControlInput1">Email:</label>#}
+                            {#                        <input class="form-control" type="email" name="email">#}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </form>
+
+        {% for review in movie.review_set.all %}
+            <div class="media mb-4">
+
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+
+                    <h5 class="mt-0">Имя: {{ review.name }}</h5>
+                    Комментарий: {{ review.text }}
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
 {% endblock %}

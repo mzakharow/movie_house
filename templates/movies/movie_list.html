@@ -39,48 +39,66 @@
 
   <!-- Page Content -->
   <div class="container">
-    <h1 class="my-4">Приглашаем в наш бизнес</h1>
+  <br>
 
-    <!-- Marketing Icons Section -->
-    <div class="row">
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Карточка 1</h4>
-          <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Далее</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Карточка 2</h4>
-          <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Далее</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Карточка 3</h4>
-          <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Далее</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      <form action="{% url 'filter' %}" method="get">
+          <ul>
+              {% for genre in view.get_genres %}
+                  <input type="checkbox" name="genre" value="{{ genre.id }}">
+                  <li>{{ genre.name }}</li>
+              {% endfor %}
+          </ul>
+
+          <ul>
+              {% for movie in view.get_years %}
+                  <input type="checkbox" name="year" value="{{ movie.year }}">
+                  <li>{{ movie.year }}</li>
+              {% endfor %}
+          </ul>
+          <button type="submit">Найти</button>
+      </form>
+{#    <h1 class="my-4">Приглашаем в наш бизнес</h1>#}
+{##}
+{#    <!-- Marketing Icons Section -->#}
+{#    <div class="row">#}
+{#      <div class="col-lg-4 mb-4">#}
+{#        <div class="card h-100">#}
+{#          <h4 class="card-header">Карточка 1</h4>#}
+{#          <div class="card-body">#}
+{#            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>#}
+{#          </div>#}
+{#          <div class="card-footer">#}
+{#            <a href="#" class="btn btn-primary">Далее</a>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col-lg-4 mb-4">#}
+{#        <div class="card h-100">#}
+{#          <h4 class="card-header">Карточка 2</h4>#}
+{#          <div class="card-body">#}
+{#            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>#}
+{#          </div>#}
+{#          <div class="card-footer">#}
+{#            <a href="#" class="btn btn-primary">Далее</a>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col-lg-4 mb-4">#}
+{#        <div class="card h-100">#}
+{#          <h4 class="card-header">Карточка 3</h4>#}
+{#          <div class="card-body">#}
+{#            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>#}
+{#          </div>#}
+{#          <div class="card-footer">#}
+{#            <a href="#" class="btn btn-primary">Далее</a>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
     <!-- /.row -->
 
     <!-- Portfolio Section -->
-    <h2>Представляем работы</h2>
+{#    <h2>Представляем работы</h2>#}
 {##}
 {#      {% for movie in movie_list %}#}
 {##}
@@ -97,7 +115,7 @@
         {% for movie in movie_list %}
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="{{ movie.poster.url }}" alt=""></a>
+                    <a href="{% url 'movie_detail' movie.url %}"><img class="card-img-top" src="{{ movie.poster.url }}" alt=""></a>
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="{% url 'movie_detail' movie.url %}">{{ movie.title }}</a>
@@ -124,10 +142,51 @@
                             {% endfor %}
                         </p>
                         <p class="card-text">{{ movie.description }}</p>
-                        <ul class="stars">
-                            <li><a href="#"><spam class="fa fa-star" aria-hidden="true"></spam></a></li>
-                            <li><a href="#"><spam class="fa fa-star-half-o" aria-hidden="true"></spam></a></li>
-                        </ul>
+
+{#                        <div class="review_stars_wrap">#}
+{#                            <div id="review_stars">#}
+{#                                <input id="star-4" type="radio" name="stars"/>#}
+{#                                <label title="Отлично" for="star-4">#}
+{#                                    <i class="fas fa-star"></i>#}
+{#                                </label>#}
+{#                                <input id="star-3" type="radio" name="stars"/>#}
+{#                                <label title="Хорошо" for="star-3">#}
+{#                                    <i class="fas fa-star"></i>#}
+{#                                </label>#}
+{#                                <input id="star-2" type="radio" name="stars" checked="checked" />#}
+{#                                <label title="Нормально" for="star-2">#}
+{#                                    <i class="fas fa-star"></i>#}
+{#                                </label>#}
+{#                                <input id="star-1" type="radio" name="stars"/>#}
+{#                                <label title="Плохо" for="star-1">#}
+{#                                    <i class="fas fa-star"></i>#}
+{#                                </label>#}
+{#                                <input id="star-0" type="radio" name="stars"/>#}
+{#                                <label title="Ужасно" for="star-0">#}
+{#                                    <i class="fas fa-star"></i>#}
+{#                                </label>#}
+{#                            </div>#}
+{#                        </div>#}
+
+
+<!--[if lte IE 7]><style>#reviewStars-input{display:none}</style><![endif]-->
+
+<div id="reviewStars-input">
+  <input id="star-4" type="radio" name="reviewStars"/>
+  <label title="gorgeous" for="star-4"></label>
+
+  <input id="star-3" type="radio" name="reviewStars"/>
+  <label title="good" for="star-3"></label>
+
+  <input id="star-2" type="radio" name="reviewStars"/>
+  <label title="regular" for="star-2"></label>
+
+  <input id="star-1" type="radio" name="reviewStars"/>
+  <label title="poor" for="star-1"></label>
+
+  <input id="star-0" type="radio" name="reviewStars"/>
+  <label title="bad" for="star-0"></label>
+</div>
                     </div>
                 </div>
             </div>
@@ -193,6 +252,7 @@
     <!-- /.row -->
 
     <!-- Features Section -->
+  <br>
     <div class="row">
       <div class="col-lg-6">
         <h2>Старт нашего бизнеса</h2>
