@@ -15,10 +15,10 @@
           </ol>
           <div class="carousel-inner">
               <div class="carousel-item active">
-                  <img class="img-fluid" src="{%  static  'img/bg-3.jpg' %}" alt="...">
+                  <img class="img-fluid" src="{%  static  'img/bg-1.jpg' %}" alt="...">
               </div>
               <div class="carousel-item">
-                  <img class="img-fluid" src="{%  static  'img/bg-3.jpg' %}">
+                  <img class="img-fluid" src="{%  static  'img/bg-2.jpg' %}" alt="...">
               </div>
               <div class="carousel-item">
                   <img class="img-fluid" src="{%  static  'img/bg-3.jpg' %}" alt="...">
@@ -171,22 +171,22 @@
 
 <!--[if lte IE 7]><style>#reviewStars-input{display:none}</style><![endif]-->
 
-<div id="reviewStars-input">
-  <input id="star-4" type="radio" name="reviewStars"/>
-  <label title="gorgeous" for="star-4"></label>
+                        <div id="reviewStars-input">
+                            <input id="star-4" type="radio" name="reviewStars"/>
+                            <label title="gorgeous" for="star-4"></label>
 
-  <input id="star-3" type="radio" name="reviewStars"/>
-  <label title="good" for="star-3"></label>
+                            <input id="star-3" type="radio" name="reviewStars"/>
+                            <label title="good" for="star-3"></label>
 
-  <input id="star-2" type="radio" name="reviewStars"/>
-  <label title="regular" for="star-2"></label>
+                            <input id="star-2" type="radio" name="reviewStars"/>
+                            <label title="regular" for="star-2"></label>
 
-  <input id="star-1" type="radio" name="reviewStars"/>
-  <label title="poor" for="star-1"></label>
+                            <input id="star-1" type="radio" name="reviewStars"/>
+                            <label title="poor" for="star-1"></label>
 
-  <input id="star-0" type="radio" name="reviewStars"/>
-  <label title="bad" for="star-0"></label>
-</div>
+                            <input id="star-0" type="radio" name="reviewStars"/>
+                            <label title="bad" for="star-0"></label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,22 +255,24 @@
   <br>
     <div class="row">
       <div class="col-lg-6">
-        <h2>Старт нашего бизнеса</h2>
-        <p>Фрейворк Bootstrap включает в себя:</p>
-        <ul>
-          <li>
-            <strong>Bootstrap v4.3.1</strong>
-          </li>
-          <li>jQuery</li>
-          <li>Font Awesome</li>
-          <li>Working contact form with validation</li>
-          <li>Unstyled page elements for easy customization</li>
-        </ul>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+        <h2>Предупреждение:</h2>
+          <p>Данный проект не нарушает:</p>
+          <ul>
+              <li>
+                  <strong>Законодательство РФ</strong>
+              </li>
+              <li>Законодательство Гондураса</li>
+              <li>Авторское право</li>
+              <li>Право на частную собственность</li>
+              <li>Право на тайну переписки</li>
+              <li>Право на свободу совести</li>
+              <li>Все права, которые только можно придумать</li>
+          </ul>
+          <p>Вся представленная информация выложена в ознакомительных целях и получена из открытых источников.</p>
       </div>
-      <div class="col-lg-6">
-        <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
-      </div>
+        <div class="col-lg-6">
+            <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
+        </div>
     </div>
     <!-- /.row -->
 
@@ -279,14 +281,13 @@
     <!-- Call to Action Section -->
     <div class="row mb-4">
       <div class="col-md-8">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+          <p><h6>Не можете больше ждать?! Переходите в библиотеку фильмов и наслаждайтесь просмотром.</h6></p>
       </div>
       <div class="col-md-4">
-        <a class="btn btn-lg btn-secondary btn-block" href="#">Подробнее...</a>
+        <a class="btn btn-lg btn-secondary btn-block" href="{% url 'movies' %}">К списку всех фильмов</a>
       </div>
     </div>
 
   </div>
   <!-- /.container -->
-
 {% endblock %}

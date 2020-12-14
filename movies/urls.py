@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path, include
 from rest_framework.routers import SimpleRouter
 
 from . import views
@@ -10,6 +10,7 @@ router.register('api/movies', MoviesListView)
 
 urlpatterns = [
     path("", views.MoviesView.as_view(), name='main'),
+    path('captcha/', include('captcha.urls')),
     path("movies/", movies_app, name='movies'),  # vue.js
     path("filter/", views.FilterMoviesView.as_view(), name='filter'),
     path("<slug:slug>/", views.MovieDetailView.as_view(), name='movie_detail'),

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from embed_video.fields import EmbedVideoField
 
 
 def image_folder(instance, filename):
@@ -71,6 +72,7 @@ class Movie(models.Model):
     budget = models.PositiveIntegerField('Бюджет', default=0, help_text='в долларах')
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.SET_NULL, null=True)
     url = models.SlugField(max_length=128, unique=True)
+    video = EmbedVideoField(blank=True, verbose_name='Видео')
     draft = models.BooleanField('Черновик', default=False)
 
     def __str__(self):

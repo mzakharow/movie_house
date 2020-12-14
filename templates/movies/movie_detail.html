@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
+{% load embed_video_tags %}
 {#{% load movie_tag %}#}
 {% block title %}
     {{ movie.title }}
 {% endblock title %}
 
 {% block content %}
-    <a href="{{ movie.get_absolute_url }}">
-        {{ movie.title }}
-    </a>
 
     <div class="container">
         {#<h1 class="mt-4 mb-3">Отдельная страница#}
@@ -23,34 +21,46 @@
             <div class="col-md-9">
                 <h3 class="my-3">Информация: </h3>
                 <ul>
-                    <li>Жанр: </li>
-                    <li>Год: </li>
-                    <li>Страна: </li>
-                    <li>Бюджет: </li>
-                    <li>Режиссер: </li>
-                    <li>Актеры: </li>
+                    <li>Жанр:
+                        {% for genre in movie.genres.all %}
+                            {{ genre.name }}
+                        {% endfor %}
+                    </li>
+                    <li>Год: {{ movie.year }}</li>
+                    <li>Страна:
+                        {% for country in movie.country.all %}
+                            {{ country }}
+                        {% endfor %}
+                    </li>
+                    <li>Бюджет: {{ movie.budget }}</li>
+                    <li>Режиссер:
+                        {% for director in movie.director.all %}
+                            <a href="{% url 'participant_detail' director.url %}">{{ director.name }}</a>
+                        {% endfor %}
+                    </li>
+                    <li>Актеры:
+                        {% for actor in movie.actors.all %}
+                            <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
+                        {% endfor %}
+                    </li>
                 </ul>
-                <h3 class="my-3">Краткое содержание: </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="my-3">Описание: </h3>
                 <p>{{ movie.description }}</p>
             </div>
         </div>
     </div>
-        <a href="{% url 'movie_detail' movie.url %}">
-            {{ movie.title }}
-        </a>
-        <img src="{{ movie.poster.url }}">
-        {% for genre in movie.genres.all %}
-            {{ genre.name }}
-        {% endfor %}
-
-        {% for director in movie.director.all %}
-            <a href="{% url 'participant_detail' director.url %}">{{ director.name }}</a>
-            {{ director.name }}
-        {% endfor %}
-        {% for actor in movie.actors.all %}
-            <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
-            {{ actor.name }}
-        {% endfor %}
+    <div class="container">
+       <div class="center-block" align="center">
+        {% if movie.video %}
+            <iframe width="560" height="315" src="{{ movie.video }}" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+    </div>
+    </div>
+{#    <iframe width="560" height="315" src="https://www.youtube.com/embed/9FR_B-73ASo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>#}
 
         <form action="{% url 'add_review' movie.id %}" method="post">
             {% csrf_token %}
@@ -62,7 +72,6 @@
                             <div class="form-group row">
                                 <label for="inputComment" class="col-sm-2 col-form-label">Комментарий:</label>
                                 <div class="col-sm-10">
-                                    {#                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">#}
                                     <textarea class="form-control" name="text" ></textarea>
                                 </div>
                             </div>
@@ -70,12 +79,9 @@
                             <div class="form-group row">
                                 <label for="inputName" class="col-sm-2 col-form-label">Имя:</label>
                                 <div class="col-sm-10">
-                                    {#                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">#}
                                     <input class="form-control" type="text" name="name">
                                 </div>
                             </div>
-                            {#                        <label for="exampleFormControlInput1">Имя:</label>#}
-                            {#                        <input class="form-control" type="text" name="name">#}
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
                                 <div class="col-sm-10">
@@ -83,8 +89,6 @@
                                     <input class="form-control" type="email" name="email">
                                 </div>
                             </div>
-                            {#                        <label for="exampleFormControlInput1">Email:</label>#}
-                            {#                        <input class="form-control" type="email" name="email">#}
                         </div>
                         <button type="submit" class="btn btn-primary">Отправить</button>
                     </form>
