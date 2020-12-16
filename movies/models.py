@@ -1,3 +1,6 @@
+import xml.etree.ElementTree as ET
+import requests
+from xml.etree import ElementTree
 from django.db import models
 from django.urls import reverse
 from embed_video.fields import EmbedVideoField
@@ -73,6 +76,7 @@ class Movie(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.SET_NULL, null=True)
     url = models.SlugField(max_length=128, unique=True)
     video = EmbedVideoField(blank=True, verbose_name='Видео')
+    kinopoisk = models.CharField('ID_Kinopoisk', default='0', max_length=8)
     draft = models.BooleanField('Черновик', default=False)
 
     def __str__(self):
@@ -81,33 +85,21 @@ class Movie(models.Model):
     def get_absolute_url(self):
         return reverse("movie_detail", kwargs={"slug": self.url})
 
+    @property
+    def get_rating(self):
+        rating = {'kinopoisk': 'n/a', 'imdb': 'n/a'}
+        response = requests.get(f'https://rating.kinopoisk.ru/{self.kinopoisk}.xml')
+        tree = ElementTree.fromstring(response.content)
+        for attr in tree:
+            if attr.tag == 'kp_rating':
+                rating['kinopoisk'] = attr.text
+            elif attr.tag == 'imdb_rating':
+                rating['imdb'] = attr.text
+        return rating
+
     class Meta:
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильмы'
-
-
-class RatingStar(models.Model):
-    value = models.SmallIntegerField('Значение', default=0)
-
-    def __str__(self):
-        return self.value
-
-    class Meta:
-        verbose_name = 'Звезда рейтинга'
-        verbose_name_plural = 'Звезды рейтинга'
-
-
-class Rating(models.Model):
-    ip = models.CharField('IP адрес', max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name='зывезда')
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name='фильм')
-
-    def __str__(self):
-        return f"{self.star} - {self.movie}"
-
-    class Meta:
-        verbose_name = 'Рейтинг'
-        verbose_name_plural = 'Рейтинги'
 
 
 class Review(models.Model):

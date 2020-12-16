@@ -43,13 +43,26 @@
                             <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
                         {% endfor %}
                     </li>
+
+                    <li><p class="card-text">Рейтинг:
+                        {% for source, assessment in movie.get_rating.items %}
+                            <ul>
+                                {% if source == 'kinopoisk' %}
+                                    <li>Кинопоиск: {{ assessment }}</li>
+                                {% elif  source == 'imdb' %}
+                                    <li>IMDb: {{ assessment }}</li>
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                        </p>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <h3 class="my-3">Описание: </h3>
-                <p>{{ movie.description }}</p>
+                <blockquote class="blockquote text-center">{{ movie.description }}</blockquote>
             </div>
         </div>
     </div>

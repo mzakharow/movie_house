@@ -141,19 +141,38 @@
                                 <a href="{% url 'participant_detail' actor.url %}">{{ actor.name }}</a>
                             {% endfor %}
                         </p>
-                        <p class="card-text">{{ movie.description }}</p>
+{#                        <p class="card-text">Рейтинг:#}
+{#                            {% for key, value in movie.get_rating.items %}#}
+{#                                Кинопоиск: {{ key }}#}
+{#                                IMDB: {{ value }}#}
+{#                            {% endfor %}#}
+{#                        </p>#}
+                        <p class="card-text">Рейтинг:
+                            {% for source, assessment in movie.get_rating.items %}
+                                <ul>
+                                {% if source == 'kinopoisk' %}
+                                    <li>Кинопоиск: {{ assessment }}</li>
+                                {% elif  source == 'imdb' %}
+                                    <li>IMDb: {{ assessment }}</li>
+                                {% endif %}
+                                </ul>
+                            {% endfor %}
+                        </p>
+                        <p class="card-text">Описание:
+                            <dd class="text-truncate">{{ movie.description }}</dd>
+                        </p>
 
-{#                        <div class="review_stars_wrap">#}
-{#                            <div id="review_stars">#}
-{#                                <input id="star-4" type="radio" name="stars"/>#}
-{#                                <label title="Отлично" for="star-4">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                </label>#}
-{#                                <input id="star-3" type="radio" name="stars"/>#}
-{#                                <label title="Хорошо" for="star-3">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                </label>#}
-{#                                <input id="star-2" type="radio" name="stars" checked="checked" />#}
+                        {#                        <div class="review_stars_wrap">#}
+                        {#                            <div id="review_stars">#}
+                        {#                                <input id="star-4" type="radio" name="stars"/>#}
+                        {#                                <label title="Отлично" for="star-4">#}
+                        {#                                    <i class="fas fa-star"></i>#}
+                        {#                                </label>#}
+                        {#                                <input id="star-3" type="radio" name="stars"/>#}
+                        {#                                <label title="Хорошо" for="star-3">#}
+                        {#                                    <i class="fas fa-star"></i>#}
+                        {#                                </label>#}
+                        {#                                <input id="star-2" type="radio" name="stars" checked="checked" />#}
 {#                                <label title="Нормально" for="star-2">#}
 {#                                    <i class="fas fa-star"></i>#}
 {#                                </label>#}
@@ -169,24 +188,23 @@
 {#                        </div>#}
 
 
-<!--[if lte IE 7]><style>#reviewStars-input{display:none}</style><![endif]-->
 
-                        <div id="reviewStars-input">
-                            <input id="star-4" type="radio" name="reviewStars"/>
-                            <label title="gorgeous" for="star-4"></label>
-
-                            <input id="star-3" type="radio" name="reviewStars"/>
-                            <label title="good" for="star-3"></label>
-
-                            <input id="star-2" type="radio" name="reviewStars"/>
-                            <label title="regular" for="star-2"></label>
-
-                            <input id="star-1" type="radio" name="reviewStars"/>
-                            <label title="poor" for="star-1"></label>
-
-                            <input id="star-0" type="radio" name="reviewStars"/>
-                            <label title="bad" for="star-0"></label>
-                        </div>
+{#                        <div id="reviewStars-input">#}
+{#                            <input id="star-4" type="radio" name="reviewStars"/>#}
+{#                            <label title="gorgeous" for="star-4"></label>#}
+{##}
+{#                            <input id="star-3" type="radio" name="reviewStars"/>#}
+{#                            <label title="good" for="star-3"></label>#}
+{##}
+{#                            <input id="star-2" type="radio" name="reviewStars"/>#}
+{#                            <label title="regular" for="star-2"></label>#}
+{##}
+{#                            <input id="star-1" type="radio" name="reviewStars"/>#}
+{#                            <label title="poor" for="star-1"></label>#}
+{##}
+{#                            <input id="star-0" type="radio" name="reviewStars"/>#}
+{#                            <label title="bad" for="star-0"></label>#}
+{#                        </div>#}
                     </div>
                 </div>
             </div>

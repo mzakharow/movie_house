@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Participant, Movie, Category, Rating, RatingStar, Review, Genre, Country
+from .models import Participant, Movie, Category, Review, Genre, Country
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -22,8 +22,6 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Participant, ParticipantAdmin)
-admin.site.register(Rating)
-admin.site.register(RatingStar)
 admin.site.register(Review)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Country)
