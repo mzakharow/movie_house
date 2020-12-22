@@ -26,6 +26,7 @@ class GenreYear:
 
 
 class MoviesView(GenreYear, ListView):
+    paginate_by = 1
     model = Movie
     queryset = Movie.objects.filter(draft=False)
     # if there is no tamplate name, a template will be displayed <model_name> + 'list'

@@ -1,4 +1,3 @@
-import xml.etree.ElementTree as ET
 import requests
 from xml.etree import ElementTree
 from django.db import models
@@ -100,6 +99,7 @@ class Movie(models.Model):
     class Meta:
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильмы'
+        ordering = ['-year']
 
 
 class Review(models.Model):
