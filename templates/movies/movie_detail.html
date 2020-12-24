@@ -8,9 +8,7 @@
 {% block content %}
 
     <div class="container">
-        {#<h1 class="mt-4 mb-3">Отдельная страница#}
-        {#      <small>портфолио</small>#}
-        {#    </h1>#}
+
     <div class="card my-4">
         <div class="row">
 
@@ -32,7 +30,7 @@
                             {{ country }}
                         {% endfor %}
                     </li>
-                    <li>Бюджет: {{ movie.budget }}</li>
+                    <li>Бюджет: {{ movie.budget }} $</li>
                     <li>Режиссер:
                         {% for director in movie.director.all %}
                             <a href="{% url 'participant_detail' director.url %}">{{ director.name }}</a>
@@ -45,7 +43,7 @@
                     </li>
 
                     <li><p class="card-text">Рейтинг:
-                        {% for source, assessment in movie.get_rating.items %}
+                        {% for source, assessment in movie.ratings.items %}
                             <ul>
                                 {% if source == 'kinopoisk' %}
                                     <li>Кинопоиск: {{ assessment }}</li>
@@ -80,12 +78,12 @@
             <div class="card my-4">
                 <h5 class="card-header">Оставить комментарий о фильме</h5>
                 <div class="card-body">
-                    <form>
+{#                    <form>#}
                         <div class="form-group">
                             <div class="form-group row">
                                 <label for="inputComment" class="col-sm-2 col-form-label">Комментарий:</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="text" ></textarea>
+                                    <textarea class="form-control" name="text"></textarea>
                                 </div>
                             </div>
 
@@ -103,8 +101,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </form>
+
+{#                    </form>#}
+                    <button type="submit" class="btn btn-primary">Отправить</button>
                 </div>
             </div>
         </form>

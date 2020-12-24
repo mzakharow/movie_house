@@ -5,7 +5,7 @@ from .models import Review
 
 
 class ReviewForm(forms.ModelForm):
-    captcha = CaptchaField()
+    # captcha = CaptchaField()
 
     class Meta:
         model = Review

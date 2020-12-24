@@ -85,7 +85,7 @@ class Movie(models.Model):
         return reverse("movie_detail", kwargs={"slug": self.url})
 
     @property
-    def get_rating(self):
+    def ratings(self):
         rating = {'kinopoisk': 'n/a', 'imdb': 'n/a'}
         response = requests.get(f'https://rating.kinopoisk.ru/{self.kinopoisk}.xml')
         tree = ElementTree.fromstring(response.content)

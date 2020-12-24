@@ -1,17 +1,43 @@
 {% extends 'base.html' %}
+
+{#{% load movie_tag %}#}
 {% block title %}
     {{ participant.name }}
 {% endblock title %}
 
 {% block content %}
-    {{ participant.name }}
-    <img src="{{ participant.image.url }}">
-    {% for actor in participant.film_actor.all %}
-        <h4>Актер: {{ actor }}</h4>
-    {% endfor %}
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <img class="img-fluid" src="{{ participant.image.url }}" alt="">
+            </div>
 
-    {% for director in participant.film_director.all %}
-        <h4>Режисер: {{ director }}</h4>
-    {% endfor %}
-
+            <div class="col-md-9">
+                <h4>{{ participant.name }}</h4>
+                <h5>{{ participant.description }}</h5>
+                {% if participant.film_actor.count > 0 %}
+                    <h4>Актер:</h4>
+                    {% for film in participant.film_actor.all %}
+                        <ul>
+                            <li>
+                                <a href="{% url 'movie_detail' film.url %}">{{ film.title }}</a>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+                {% if participant.film_director.count > 0 %}
+                    <h4>Режисер:</h4>
+                    {% for film in participant.film_director.all %}
+                        <ul>
+                            <li>
+                                <a href="{% url 'movie_detail' film.url %}">{{ film.title }}</a>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr>
 {% endblock %}

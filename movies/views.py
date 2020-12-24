@@ -9,7 +9,7 @@ from .forms import ReviewForm
 from .serializer import MoviesSerializer
 
 
-class GenreYear:
+class Filters:
     @staticmethod
     def get_genres():
         return Genre.objects.all()
@@ -25,7 +25,7 @@ class GenreYear:
 #         return render(request, "movies/movie_list.html", {"movie_list": movies})
 
 
-class MoviesView(GenreYear, ListView):
+class MoviesView(Filters, ListView):
     paginate_by = 1
     model = Movie
     queryset = Movie.objects.filter(draft=False)
@@ -43,7 +43,7 @@ class MoviesView(GenreYear, ListView):
 #         return render(request, "movies/movie.html", {"movie": movie})
 
 
-class MovieDetailView(GenreYear, DetailView):
+class MovieDetailView(Filters, DetailView):
     model = Movie
     slug_field = "url"  # по какому полю нужно искать запись
     # if there is no template_name, a template will be displayed <model_name> + '_detail' (there is movie_detail)
@@ -79,12 +79,20 @@ class ParticipantView(DetailView):
     slug_field = 'url'  # field for search
 
 
-class FilterMoviesView(GenreYear, ListView):
+class FilterMoviesView(Filters, ListView):
     def get_queryset(self):
-        queryset = Movie.objects.filter(
-            Q(year__in=self.request.GET.getlist("year")) |    # Q как логическое ИЛИ
-            Q(genres__in=self.request.GET.getlist("genre"))   # , как просто И
-        )
+        year = self.request.GET.getlist("year")
+        genre = self.request.GET.getlist("genre")
+        q_filter = Q()
+        if not year[0] == '':
+            q_filter |= Q(year__in=year)
+        if len(genre) > 0:
+            q_filter |= Q(genres__in=genre)
+        if q_filter is None:
+            q_filter = Q(draft=False)
+
+        queryset = Movie.objects.filter(q_filter).order_by('year')
+        # queryset = Movie.objects.filter(q_filter).order_by('url').distinct('url')  # don't work with sqlite
         return queryset
 
 
